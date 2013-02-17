@@ -1,0 +1,182 @@
+<!DOCTYPE HTML>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<script src="SCORM_API_wrapper.js" type="text/javascript"></script>
+	<script src="jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="popcorn-complete.min.js" type="text/javascript"></script>
+	<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.0/themes/base/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="styles/style.css" media="screen"></style>
+	<script type='text/javascript'>//<![CDATA[ 
+		$(window).load(function(){
+	
+			var pop = Popcorn("#intro");
+			pop.play();
+		});//]]>  
+				
+	</script>
+
+	<script type="text/javascript">
+		var scorm = pipwerks.SCORM;
+		var lmsConnected = false;
+
+		// Alert if there's a problem
+		function handleError(msg){
+			alert(msg);
+			window.close();
+		}
+
+		function initCourse(){
+			// Scorm.init renvoie un boléen.
+			lmsConnected = scorm.init();
+
+			// Si c'est TRUE
+			if(lmsConnected){
+
+				// On va voir si le cours a déjà été complété.
+				var completionstatus = scorm.get("cmi.core.lesson_status");
+
+				// Si c'est le cas...
+				if(completionstatus == "completed" || completionstatus == "passed"){
+
+					handleError("Vous avez déjà complété ce cours. Pas la peine de continuer...");
+				}
+				// Sinon, on continue: on prend le nom de l'utilisateur comme variable
+				var learnername = scorm.get("cmi.core.student_name");
+
+				// Et s'il existe (parce que ...)
+				if(learnername){
+
+					// On l'affiche dans un élément de page que l'on appellera "learnername".
+					document.getElementById("learnername").innerHTML = learnername;
+				}
+
+			// Mais si lms est FALSE...
+			} else {
+
+				// On avertit l'utilisateur pis on ferme tout.
+				handleError("Erreur. La connection avec le LMS n\'a pas pu se faire.");
+			}
+		}
+
+		function setComplete(){
+			// Est-ce que lmsConnection est actif ?
+			if(lmsConnected){
+
+				// Oui : on essaye de faire passer le cours en "Complété".
+				var success = scorm.set("cmi.core.lesson_status", "completed");
+
+				// Et si ça a marché...
+				if(success){
+
+					//Alors on se déconnecte du LMS
+					scorm.quit();
+				
+				// Mais si ça a déconné, que le cours n'a pas pu être complété...
+				} else {
+
+					// On prévient l'utilisateur et puis on ferme la fenêtre.
+					handleError("Erreur: le cours n'a pas pu être marqué comme complété!");
+				}
+
+			// ... Si la connection n'a pas fonctionné
+			} else {
+
+				// On prévient / on ferme
+
+				handleError("Erreur dans la connection au LMS");
+			}
+		}
+
+		function initForm(){
+			document.getElementById("myform").onsubmit = function(){
+				this.innerHTML = "Super, tout va bien";
+				setComplete();
+				return false; //pour pas renvoyer les réponses
+			}
+		}
+	window.onload = function(){
+	initCourse();
+	initForm();
+			//Action to take...
+	};
+	</script> 
+	<script>
+	$(function() {
+		$( "#qcm" ).buttonset();
+	});
+	</script>
+	<script>
+	$(function() {
+		$( "#radio1" ).click(function() { 
+		$(this).parent().addClass( "incorrect" );
+		return false;
+		});
+		$( "#radio2" ).click(function() { 
+		$(this).parent().addClass( "incorrect" );
+		return false;
+		});
+		$( "#radio3" ).click(function() { 
+		$( ".lineQCM" ).addClass( "incorrect" );
+		$( "#qcm3" ).addClass( "correct" );
+		return false;
+		});
+	});
+	</script>
+	<script>
+	$(function() {
+		$( "button:first" ).button({
+		icons: {
+			primary: "ui-icon-seek-prev"
+		}
+		}).next().button({
+		icons: {
+			secondary: "ui-icon-seek-next"
+		}
+		});
+	});
+	</script>
+	<title>La forme du subjonctif: introduction.</title>
+</head>
+<body>
+	<!-- TEXTE DU SCRIPT
+	Regardez les exemples suivants. Pour je, tu, elle, il et on, au singulier, et au pluriel, il y a une seule forme à retenir. Laquelle ? Cliquez sur la forme du présent qui sert de référence.
+	- Oui, c'est bien la forme plurielle de elles et ils au présent de l'indicatif. Écoutez : ils prennent - il faut que je prenne
+	- Woopopopop ! Écoutez la différence: je prends (tu / elle ) - il faut que je prenne.
+	"Mes amis prennent l'air quand ils sont fatigués..." - "Moi aussi, quand je suis fatigué, il faut que je prenne l'air"
+	"Ils sortent vendredi soir ?" - "Oui" - "Bon, alors il faut qu'on sorte samedi"
+	-->
+	<h1>Subjonctif: observation - 2</h1>
+	<audio id="intro" src="sounds/intro.ogg"></audio>
+	<div class="leftColumn" id="present">
+		<h2>... et avec <em>nous</em> et <em>vous</em> ? </h2>
+		<ul class="smallList noBullet">
+			<li id="l0" class="entrylinePR">L'année dernière, le matin...<li/>
+			<li id="l1"> ...nous <span class="verb" id="p1s">prenions</span> un café.</li>
+			<li id="l2"> ...vous <span class="verb" id="p2s">preniez</span> un café.</li>
+		</ul>
+	</div>
+	<div class="rightColumn">
+		<h2>Présent du subjonctif</h2>
+		<ul class="smallList noBullet">
+			<li id="l5" class="entryLine">Ce matin, il faut ...<li/>
+			<li id="l6" class="lineSubj">...que nous <span class="verb" id="s1s">prenions</span> un café.</li>
+			<li id="l7" class="lineSubj">...que vous <span class="verb" id="s2s">preniez</span> un café.</li>
+		</ul>
+	</div>
+	<hr class="clearer" />
+	<div id="qcm">
+	<p class="instructions">Quelle est la forme utilisée dans la colonne de gauche ?</p>
+	<ul class="smallList noBullet">
+		<li id="qcm1" class="lineQCM"><input type="radio" id="radio1" name="radio" /><label for="radio1">?</label> Le conditionnel ?</li>
+		<li id="qcm2" class="lineQCM"><input type="radio" id="radio2" name="radio" /><label for="radio2">?</label> Le plus-que-parfait ?</li>
+		<li id="qcm3" class="lineQCM"><input type="radio" id="radio3" name="radio" /><label for="radio3">?</label> L'imparfait ?</li>
+	</ul>
+	</div>
+	<div class="clearer navBar">
+		<button class="navBtn" id="prev" type="submit">Préc.</button>
+		<button class="navBtn" id="next" type="submit">Suiv.</button>
+	</div>
+</body>
+</html>

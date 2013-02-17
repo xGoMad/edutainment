@@ -1,0 +1,28 @@
+{
+	"document": {
+		"type": "qcm",
+		"consigne": {
+			"ligne": "Observez les phrases suivantes",
+			"ligne": "Blah blah",
+			"ligne": "Blih blih" 
+		}
+		"exercice": {
+			"item": {
+				"id": "1" {
+					"phrase": "Quand est-ce qu'ils" { "em": "viennent" }", demain"{"nbsp":"on"}"?",
+					"correctAnswer": {
+						"screen": "present",
+						"print": "Présent",
+						"feedback": "Oui, c'est bien la forme présent"
+					},
+					"otherAnswer": {
+						"screen": "subjonctif",
+						"screen": "Subjonctif",
+						"feedback": "Même si le contexte pourrait laisser penser qu'il y a un doute (puisqu'il s'agit d'une question), il n'y a pas d'opinion, ou de sentiment en jeu: quand est-ce qu'ils viennent, ça veut dire : ils viennent."
+					}
+				}
+			}
+		}
+	}
+}
+

@@ -1,0 +1,259 @@
+.word {
+	color: #333333;
+}
+.word:hover, .word.selected {
+  	color: #336699;
+   cursor: pointer;
+}
+h1 {
+	text-align: left;
+	margin-left: 3em;
+	font-size: 2em;
+	color: #336699;
+}
+ul.presentationList{
+	font-size: 3em;
+}	
+ul.smallList{
+	font-size: 2em;
+}
+ul.smallerList{
+	font-size: 1.3em;
+}
+ul.noBullet li{
+	list-style-type: none;
+}
+ul.smallList label{
+	font-size: small;
+}
+div.leftColumn{
+	float: left;
+	padding: 1em;
+	border: 1px solid black;
+	margin-right: 50px;
+	margin-left: 50px;
+}
+div.rightColumn{
+	float: left;
+	padding: 1em;
+	border: 1px solid black;
+}
+.clearer{
+	clear: both;
+}
+.invisible{
+	visibility: hidden;
+}
+.aligner{
+	margin-bottom: 2em;
+}
+.hiddenBtn{
+	visibility: hidden;
+}
+.visibleBtn{
+	visibility: visible !important;
+}
+.verb{
+	font-style: italic;
+	color: #336699;
+}
+.navBtn{
+	font-size: small;
+}
+.navBar{
+	text-align: right;
+	padding-top: 20px;
+}
+.correct{
+	color: green !important;
+	text-decoration: none !important;
+}
+.incorrect{
+	color: gray;
+	text-decoration: line-through;
+}
+.correctAnswer{
+	color: green;
+	text-decoration: underline;
+}
+.incorrectAnswer{
+	color: gray;
+	text-decoration: line-through;
+}
+
+/*********************************************
+ * The sentence list
+ *******************************************/
+
+#list-container {
+	height: 150px;	
+	width: 70%;
+	padding: 10px;
+	margin: 1.5em;
+	margin-top: 2em;
+	background-color: #ddd;
+	float: left;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.als-item{
+	font-size: 3em;
+	display: none;
+}
+
+.als-wrapper{
+	
+}
+
+/***********************************************
+ * prev, next: buttons styling
+ **********************************************/
+#arrowContainer {
+	height: 170px;
+	width: 30px;
+	float: left;
+	margin-top: 2em;
+	margin-left: 0.5em;
+}
+
+.als-next {
+	cursor: pointer;
+	position: relative;
+	bottom: -130px;
+}
+
+.als-prev {
+	cursor: pointer;
+	position: relative;
+	bottom: -20px;
+}
+
+#dialog-modal {
+	display: none;
+}
+
+/**********************************************
+ * Consigne
+ * *******************************************/
+
+#consigne {
+	font-size: 1.5em;
+	width: 60%;
+	margin: 1.5em;
+}
+
+#consigne .commande {
+	color: black;
+	text-decoration: underline;
+}
+
+#consigne .question {
+	color: #666;
+	text-shadow: 1px 1px #bbb;
+}
+
+/**********************************************
+ * The score and the counter boxes.
+ *********************************************/
+
+#counterBox {
+	padding: 10px;
+	text-align: center;
+	font-size: 1.5em;
+	height: 150px;
+	width: 100px;
+	background-color: #333;
+	color: white;
+	margin: 1.5em;
+	float: left;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+#counterBox #idPhrase, #counterBox .nbPhrases {
+	font-size: 2em;
+}
+
+#scoreBox {
+	padding: 10px;
+	text-align: center;
+	font-size: 1.5em;
+	height: 150px;
+	width: 130px;
+	background-color: #274257;
+	color: white;
+	margin-left: 1.5em;
+	float: left;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+#scoreBox #score, #scoreBox .nbPhrases {
+	font-size: 1.5em;
+}
+
+/*****************************************
+ * Boite aux questions ^^
+ ****************************************/
+
+#qcmBox {
+	padding: 10px;
+	text-align: left;
+	height: 150px;
+	width: 70%;
+	background-color: #DFC184;
+	color: #333;
+	margin-left: 1.5em;
+	float: left;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.instructions {
+	color: #274257;
+	font-size: 1.2em;
+	font-weight: bold;
+	width: 50%;
+}
+
+#qcmBox .qcmWrapper {
+	width: 30%;
+}
+
+#feedback {
+	text-align: center;
+	padding: 20px;
+	font-size: 1.2em;
+	height: 50px;
+	width: 30%;
+	float: right;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+
+.win {
+	background-color: #030;
+	color: white;
+}
+
+.lose {
+	background-color: #6B0000;
+	color: white;
+}
+
+.warning {
+	background-color: #A84A5C;
+	color: white;
+}
+
+/*******************************
+ * Le tableau récapitulatif
+ *******************************/
+.recap {
+	font-size: 1.2em;
+}
+
+.recap .odd {
+	background-color: #ddd;
+}

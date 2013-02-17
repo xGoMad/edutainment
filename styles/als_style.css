@@ -1,0 +1,50 @@
+/*****************************************************
+ * generic styling for ALS elements: outer container
+ ******************************************************/
+
+.als-container {
+	position: relative;
+	width: 80%;
+	height: 80px;
+	margin: 50px auto;
+	z-index: 0;
+	border: 1px dashed black;
+}
+
+/****************************************
+ * viewport styling
+ ***************************************/
+
+.als-viewport {
+	position: relative;
+	overflow: hidden;
+	margin: 20px auto;
+	width: 80% !important;
+	height: 50px !important;
+}
+
+/***************************************************
+ * wrapper styling
+ **************************************************/
+
+.als-wrapper {
+	position: relative;
+	width: 100% !important;
+	/* if you are using a list with <ul> <li> */
+	list-style: none;
+}
+
+/*************************************
+ * item: single list element
+ ************************************/
+
+.als-item {
+	position: relative;
+	display: block;
+	text-align: left;
+	cursor: pointer;
+	font-size: 3em;
+/*	float: left;*/
+}
+
+

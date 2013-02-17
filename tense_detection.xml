@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<document>
+	<consigne>
+		<phrase>Observez les phrases suivantes.</phrase>
+		<phrase>a) Quels sont les verbes au présent de l'indicatif, ceux a l'imparfait, et ceux au subjonctif ?</phrase>
+		<phrase>b) Éventuellement, essayez de déterminer ce qui entraîne l'emploi du subjonctif.</phrase>
+	</consigne>
+	<feedback>
+		<positive>
+			<phrase>Bravo !</phrase>
+		</positive>
+		<negative>
+			<phrase>Ce n'est pas correct.</phrase>
+		</negative>
+	</feedback>
+	<exercice>
+		<item id="1">
+			<phrase>Quand est-ce qu'ils <em>viennent</em>&nbsp;?</phrase>
+			<correctAnswer>
+				<screen>present</screen>
+				<print>Présent</print>
+			</correctAnswer>
+		</item>
+		<item id="2">
+			<phrase>Il faut qu'elle vienne. </phrase>
+			<correctAnswer>
+				<screen>subjonctif</screen>
+				<print>Subjonctif</print>
+			</correctAnswer>
+		</item>
+		<item id="3">
+			<phrase>Elle est arrivée au moment où nous prenions le thé.</phrase>
+			<correctAnswer>
+				<screen>imparfait</screen>
+				<print>Imparfait</print>
+			</correctAnswer>
+		</item>
+		<item id="4">
+			<phrase>Elle doute que tu partes avec nous. </phrase>
+			<correctAnswer>
+				<screen>subjonctif</screen>
+				<print>Subjonctif</print>
+			</correctAnswer>
+		</item>
+		<item id="5">
+			<phrase>Est-ce que c'est sûr que tu pars avec nous&nbsp;? </phrase>
+			<correctAnswer>
+				<screen>present</screen>
+				<print>Présent</print>
+			</correctAnswer>
+		</item>
+		<item id="6">
+			<phrase>Je regrette que vous ayez eu tellement d'ennuis. </phrase>
+			<correctAnswer>
+				<screen>subjonctif</screen>
+				<print>Subjonctif</print>
+			</correctAnswer>
+		</item>
+		<item id="7">
+			<phrase>Il est certain qu'il boit trop. </phrase>
+			<correctAnswer>
+				<screen>present</screen>
+				<print>Présent</print>
+			</correctAnswer>
+		</item>
+		<item id="8">
+			<phrase>Il est indispensable que vous soyez d'accord. </phrase>
+			<correctAnswer>
+				<screen>subjonctif</screen>
+				<print>Subjonctif</print>
+			</correctAnswer>
+		</item>
+		<item id="9">
+			<phrase>Il faudrait qu'il boive moins. </phrase>
+			<correctAnswer>
+				<screen>subjonctif</screen>
+				<print>Subjonctif</print>
+			</correctAnswer>
+		</item>
+		<item id="10">
+			<phrase>Il est impossible que nous prenions la voiture. </phrase>
+			<correctAnswer>
+				<screen>subjonctif</screen>
+				<print>Subjonctif</print>
+			</correctAnswer>
+		</item>
+		<item id="11">
+			<phrase>Je ne pense pas que tu verras cette jeune fille. </phrase>
+			<correctAnswer>
+				<screen>none</screen>
+				<print>Futur (simple)</print>
+			</correctAnswer>
+		</item>
+		<item id="12">
+			<phrase>Depuis quand connaissiez-vous la verité&nbsp;? </phrase>
+			<correctAnswer>
+				<screen>imparfait</screen>
+				<print>Imparfait</print>
+			</correctAnswer>
+		</item>
+		<item id="13">
+			<phrase>Je suis sûr qu'ils vont aller à la mer cet été.</phrase>
+			<correctAnswer>
+				<screen>none</screen>
+				<print>Futur (périphrastique)</print>
+			</correctAnswer>
+		</item>
+		<item id="14">
+			<phrase>Je croyais que vous faisiez du ski. </phrase>
+			<correctAnswer>
+				<screen>imparfait</screen>
+				<print>Imparfait</print>
+			</correctAnswer>
+		</item>
+		<item id="15">
+			<phrase>Leur père ne veut pas qu'elles aillent voir ce film. </phrase>
+			<correctAnswer>
+				<screen>subjonctif</screen>
+				<print>Subjonctif</print>
+			</correctAnswer>
+		</item>
+		<item id="16">
+			<phrase>J'étais persuadée que vous étiez encore en vacances. </phrase>
+			<correctAnswer>
+				<screen>imparfait</screen>
+				<print>Imparfait</print>
+			</correctAnswer>
+		</item>
+		<item id="17">
+			<phrase>Pourquoi aviez-vous peur de lui&nbsp;? </phrase>
+			<correctAnswer>
+				<screen>imparfait</screen>
+				<print>Imparfait</print>
+			</correctAnswer>
+		</item>
+		<item id="18">
+			<phrase>Je crois qu'elle est déjà partie. </phrase>
+			<correctAnswer>
+				<screen>present</screen>
+				<print>Présent</print>
+			</correctAnswer>
+		</item>
+		<item id="19">
+			<phrase>Je trouve improbable qu'elle mente. </phrase>
+			<correctAnswer>
+				<screen>subjonctif</screen>
+				<print>Subjonctif</print>
+			</correctAnswer>
+		</item>
+		<item id="20">
+			<phrase>Aviez-vous déjà entendu parler de cette histoire&nbsp;?</phrase>
+			<correctAnswer>
+				<screen>imparfait</screen>
+				<print>Imparfait</print>
+			</correctAnswer>
+		</item>
+	</exercice>
+</document>

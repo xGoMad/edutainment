@@ -1,0 +1,300 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="js/SCORM_API_wrapper.js" type="text/javascript"></script>
+	<script src="js/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="js/jquery-ui-1.10.0.js"></script>
+	<link rel="stylesheet" href="styles/jquery-ui.css" />
+	<link rel="stylesheet" type="text/css" href="styles/style.css" media="screen"></style>
+	<script type="text/javascript">
+/*		var scorm = pipwerks.SCORM;
+		var lmsConnected = false;
+
+		// Alert if there's a problem
+		function handleError(msg){
+			alert(msg);
+			window.close();
+		}
+
+		function initCourse(){
+			// Scorm.init renvoie un boléen.
+			lmsConnected = scorm.init();
+
+			// Si c'est TRUE
+			if(lmsConnected){
+
+				// On va voir si le cours a déjà été complété.
+				var completionstatus = scorm.get("cmi.core.lesson_status");
+
+				// Si c'est le cas...
+				if(completionstatus == "completed" || completionstatus == "passed"){
+
+					handleError("Pour info : vous avez déjà complété ce cours...");
+				}
+				// Sinon, on continue: on prend le nom de l'utilisateur comme variable
+				var learnername = scorm.get("cmi.core.student_name");
+
+				// Et s'il existe (parce que ...)
+				if(learnername){
+
+					// On l'affiche dans un élément de page que l'on appellera "learnername".
+					document.getElementById("learnername").innerHTML = learnername;
+				}
+
+			// Mais si lms est FALSE...
+			} else {
+
+				// On avertit l'utilisateur pis on ferme tout.
+				handleError("Erreur. La connection avec le LMS n\'a pas pu se faire.");
+			}
+		}
+
+		function setComplete(){
+			// Est-ce que lmsConnection est actif ?
+			if(lmsConnected){
+
+				// Oui : on essaye de faire passer le cours en "Complété".
+				var success = scorm.set("cmi.core.lesson_status", "completed");
+
+				// Et si ça a marché...
+				if(success){
+
+					//Alors on se déconnecte du LMS
+					scorm.quit();
+				
+				// Mais si ça a déconné, que le cours n'a pas pu être complété...
+				} else {
+
+					// On prévient l'utilisateur et puis on ferme la fenêtre.
+					handleError("Erreur: le cours n'a pas pu être marqué comme complété!");
+				}
+
+			// ... Si la connection n'a pas fonctionné
+			} else {
+
+				// On prévient / on ferme
+
+				handleError("Erreur dans la connection au LMS");
+			}
+		}
+
+		function initForm(){
+			document.getElementById("myform").onsubmit = function(){
+				this.innerHTML = "Super, tout va bien";
+				setComplete();
+				return false; //pour pas renvoyer les réponses
+			}
+		}
+	window.onload = function(){
+	initCourse();
+	initForm();
+			//Action to take...
+	};*/
+	</script> 
+	<script>
+		var sentenceIndex = 1;
+		var correctAnswer = ""; 
+		var score = 0;
+		var count = 0;
+		var nbSentences;
+
+		function parseMyXml()
+		{
+		  $.ajax({
+		    type: "GET",
+		    url: "tense_detection.xml",
+		    dataType: "xml",
+		    success: parseXml
+		  });
+		}
+
+		$(parseMyXml());
+
+		function parseXml(xml)
+		{
+		
+		$nbSntns = $(xml).find("exercice item").length;
+//		$( ".nbPhrases" ).empty().append($(xml).find("exercice item").length);
+		$( ".nbPhrases" ).empty().append($nbSntns);
+		nbSentences = $nbSntns;
+		
+		var $shownIndex = $(xml).find('item[id=' + sentenceIndex + ']').find("screen").text();
+		correctAnswer = $shownIndex;
+		printSentence();
+		updateScore();
+		updateArrows();
+		removeStyles();
+		}
+		
+		function printSentence() {
+			$("#idPhrase").empty().append( sentenceIndex );
+			$( "#" + sentenceIndex ).show( "highlight", 500 );
+		}
+		
+
+		function removeStyles() {
+			$("#feedback").removeClass("warning");
+			$("#feedback").removeClass("win");
+			$("#feedback").removeClass("lose");
+		}
+
+		function updateScore() {
+			$('input[name="radio"]').prop('checked', false);
+			$("#score").empty().append( score );
+		}
+
+		function updateCount() {
+			$( "#nextPage" ).button( "option", "disabled", true );
+			if ( count == nbSentences ) {
+				 $(function() {
+					$( "#dialog-modal" ).dialog({
+					height: 140,
+					modal: true
+				});
+			});	
+//				setComplete();
+				$( "#nextPage" ).button( "option", "disabled", false );
+			}
+		}
+
+		function updateArrows() {
+			if ( sentenceIndex == 1 ) {
+				$( "#previous" ).addClass("hiddenBtn");
+			}
+			else if ( sentenceIndex == nbSentences ) {
+				$( "#next" ).addClass("hiddenBtn");
+			}
+			else {
+				$( "#previous" ).removeClass("hiddenBtn");
+				$( "#next" ).removeClass("hiddenBtn");
+			}
+		}
+
+		$(function() {
+			$( "button:first" ).button({
+			icons: { secondary: "ui-icon-seek-next" }
+		});
+			updateCount();
+	});
+
+	$(function() {
+			$( "#next" ).click(function() {
+				$( "#" + sentenceIndex ).hide( "highlight", 500 );
+				sentenceIndex ++;
+				$( "#" + sentenceIndex ).delay(500).show( "highlight", 500 );
+			parseMyXml();
+			});
+			
+			$( "#previous" ).click(function() {
+			$( "#" + sentenceIndex ).hide( "highlight", 500 );
+				sentenceIndex --;
+				$( "#" + sentenceIndex ).delay(500).show( "highlight", 500 );
+			parseMyXml();
+			});
+		});
+
+
+		function checkAnswer(reponse) {
+			count ++;
+			updateCount();
+			if ( reponse == correctAnswer ) {
+				$("#feedback").empty().append("Oui, c'est la bonne réponse. Bravo !").addClass("win").fadeIn(200).delay(1000).fadeOut(500);
+				score ++;
+				updateScore();
+				$("#" + sentenceIndex ).addClass("correctAnswer");
+				return true;
+			}
+			else {
+				$("#feedback").empty().append("Désolé ! C'est la mauvaise réponse.").addClass("lose").fadeIn(200).delay(1000).fadeOut(500);
+				$("#" + sentenceIndex ).addClass("incorrectAnswer");
+				return false;
+			}
+		}
+		
+			$(function() {
+				$( ".radioBtn" ).click(function() {
+					if ($("#" + sentenceIndex).hasClass('als-item correctAnswer') == true || $("#" + sentenceIndex).hasClass('als-item incorrectAnswer') == true)
+					{
+						$("#feedback").empty().append("Vous avez déjà répondu à cette question.").addClass("warning").fadeIn(200).delay(1000).fadeOut(500);
+					}
+					else
+					{
+						reponse = $(this).attr('id');
+						checkAnswer(reponse);
+					}
+				});
+			});
+
+	</script>
+	<title>Exercice sur le subjonctif</title>
+</head>
+<body>
+	<h1>Exercice : reconnaître la forme du subjonctif</h1>
+	<div id="consigne">
+		<span class="commande">Observez les phrases suivantes:</span> <br />
+		<span class="question">Quelle est la forme employée pour le verbe en italique ? Présent, ou imparfait de l'indicatif ? subjonctif ? ou aucun des trois ?</span><br />
+	</div>
+
+	<div id="counterBox">
+		Phrase <br />
+		<span id="idPhrase"></span><br />
+		---- <br />
+		<span class="nbPhrases"></span> <br />
+	</div>
+
+	<div id="arrowContainer">
+		<span class="als-prev" id="previous"><img src="images/top_arrow.png" alt="prev" title="previous" /></span>
+		<span class="als-next" id="next"><img src="images/bottom_arrow.png" alt="next" title="next" /></span> <!-- "next" button -->
+	</div>
+
+	<div id="list-container">
+    <ul class="als-wrapper noBullet" id="listePhrases">
+		<li class="als-item" id="1">Quand est-ce qu'ils <em>viennent</em>&nbsp;?</li>
+		<li class="als-item" id="2">Il faut qu'elle <em>vienne</em>. </li>
+		<li class="als-item" id="3">Elle est arrivée au moment où nous <em>prenions</em> le thé.</li>
+		<li class="als-item" id="4">Elle doute que tu <em>partes</em> avec nous. </li>
+		<li class="als-item" id="5">Est-ce que c'est sûr que tu <em>pars</em> avec nous&nbsp;? </li>
+		<li class="als-item" id="6">Je regrette que vous <em>ayez</em> eu tellement d'ennuis. </li>
+		<li class="als-item" id="7">Il est certain qu'il <em>boit</em> trop. </li>
+		<li class="als-item" id="8">Il est indispensable que vous <em>soyez</em> d'accord. </li>
+		<li class="als-item" id="9">Il faudrait qu'il <em>boive</em> moins. </li>
+		<li class="als-item" id="10">Il est impossible que nous <em>prenions</em> la voiture. </li>
+		<li class="als-item" id="11">Je ne pense pas que tu <em>verras</em> cette jeune fille. </li>
+		<li class="als-item" id="12">Depuis quand <em>connaissiez</em>-vous la verité&nbsp;? </li>
+		<li class="als-item" id="13">Je suis sûr qu'ils <em>vont aller</em> à la mer cet été.</li>
+		<li class="als-item" id="14">Je croyais que vous <em>faisiez</em> du ski. </li>
+		<li class="als-item" id="15">Leur père ne veut pas qu'elles <em>aillent</em> voir ce film. </li>
+		<li class="als-item" id="16">J'étais persuadée que vous <em>étiez</em> encore en vacances. </li>
+		<li class="als-item" id="17">Pourquoi <em>aviez</em>-vous peur de lui&nbsp;? </li>
+		<li class="als-item" id="18">Je crois qu'elle <em>est</em> déjà partie. </li>
+		<li class="als-item" id="19">Je trouve improbable qu'elle <em>mente</em>. </li>
+		<li class="als-item" id="20"><em>Aviez</em>-vous déjà entendu parler de cette histoire&nbsp;?</li>
+		</ul> <!-- als-wrapper end -->
+  </div>
+  <hr class="clearer invisible aligner" />
+	<div id="scoreBox">
+		Votre score: <br />
+		<span id="score"></span><br /> 
+		----<br />
+		<span class="nbPhrases"></span> <br />
+	</div>
+  <div id="qcmBox">
+	<div id="feedback"></div>
+	<p class="instructions">Quelle est la forme utilisée dans cette phrase ?</p>
+	<ul class="smallerList noBullet qcmWrapper">
+		<li id="qcm1" class="lineQCM"><input class="radioBtn" type="radio" id="present" name="radio" /><label for="radio1"></label> Le présent ?</li>
+		<li id="qcm2" class="lineQCM"><input class="radioBtn" type="radio" id="subjonctif" name="radio" /><label for="radio2"></label> Le subjonctif ?</li>
+		<li id="qcm3" class="lineQCM"><input class="radioBtn" type="radio" id="imparfait" name="radio" /><label for="radio3"></label> L'imparfait ?</li>
+		<li id="qcm4" class="lineQCM"><input class="radioBtn" type="radio" id="none" name="radio" /><label for="radio4"></label> Aucun des trois ?</li>
+	</ul>
+</div>
+<hr class="clearer invisible aligner" />
+<form style="display: inline" action="tense_detection_2.html" method="get">
+<button class="navBtn" id="nextPage" type="submit">Page suivante</button>
+</form>
+<div id="dialog-modal" title="Vous avez terminé !">
+<p>Bravo, vous avez complété cette activité. Prenez note de votre score, et passez à la page suivante pour continuer.</p>
+</div>
+</body>
+</html>
