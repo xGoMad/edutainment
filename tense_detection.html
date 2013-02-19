@@ -105,26 +105,43 @@
 		    type: "GET",
 		    url: "tense_detection.xml",
 		    dataType: "xml",
-		    success: parseXml
+		    success: parseXML
 		  });
 		}
 
 		$(parseMyXml());
 
-		function parseXml(xml)
+		function parseXML(xml)
 		{
-		
-		$nbSntns = $(xml).find("exercice item").length;
-//		$( ".nbPhrases" ).empty().append($(xml).find("exercice item").length);
-		$( ".nbPhrases" ).empty().append($nbSntns);
-		nbSentences = $nbSntns;
-		
-		var $shownIndex = $(xml).find('item[id=' + sentenceIndex + ']').find("screen").text();
-		correctAnswer = $shownIndex;
-		printSentence();
-		updateScore();
-		updateArrows();
-		removeStyles();
+			
+			$nbSntns = $(xml).find("exercice item").length;
+			$( ".nbPhrases" ).empty().append($nbSntns);
+			nbSentences = $nbSntns;
+
+			var maPhrase = " ";
+			var currentSentence = $(xml).find('item[id=' + sentenceIndex + ']').find("phrase").find("part").each(function () {
+				var part = $(this).attr("action");
+				if ( part == "italics" ) {
+					maPhrase += $(this).text().italics() + " ";
+				}
+				else {
+					maPhrase += $(this).text() + " ";
+				}
+			});
+			
+			var $shownIndex = $(xml).find('item[id=' + sentenceIndex + ']').find("screen").text();
+			correctAnswer = $shownIndex;
+
+			// Do the printing bit.
+			printPhrase(maPhrase);
+			printSentence();
+			updateScore();
+			updateArrows();
+			removeStyles();
+		}
+
+		function printPhrase(phrase) {
+			$("#" + sentenceIndex).empty().append( phrase );
 		}
 		
 		function printSentence() {
@@ -247,10 +264,11 @@
 		<span class="als-prev" id="previous"><img src="images/top_arrow.png" alt="prev" title="previous" /></span>
 		<span class="als-next" id="next"><img src="images/bottom_arrow.png" alt="next" title="next" /></span> <!-- "next" button -->
 	</div>
+	<div id="jsphrase"></div>
 
 	<div id="list-container">
     <ul class="als-wrapper noBullet" id="listePhrases">
-		<li class="als-item" id="1">Quand est-ce qu'ils <em>viennent</em>&nbsp;?</li>
+		<li class="als-item" id="1"></li>
 		<li class="als-item" id="2">Il faut qu'elle <em>vienne</em>. </li>
 		<li class="als-item" id="3">Elle est arrivée au moment où nous <em>prenions</em> le thé.</li>
 		<li class="als-item" id="4">Elle doute que tu <em>partes</em> avec nous. </li>

@@ -16,7 +16,11 @@
 	</feedback>
 	<exercice>
 		<item id="1">
-			<phrase>Quand est-ce qu'ils <em>viennent</em>&nbsp;?</phrase>
+			<phrase>
+				<part action="none">Quand est-ce qu'ils </part>
+				<part action="italics">viennent </part>
+				<part action="none">&nbsp;?</part>
+			</phrase>
 			<correctAnswer>
 				<screen>present</screen>
 				<print>Présent</print>
